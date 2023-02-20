@@ -1,0 +1,34 @@
+A=[1 1 -1 3;5 1 4 15]
+B=[15;12]
+C=[1 2 -1 1]
+%phase 2
+n=size(A,2)
+m=size(A,1)
+if n>m
+    sols=nchoosek(n,m)
+    pair=[1 4; 2 3]
+   
+    solution=[]
+    for i = 1:2
+        y=zeros(n,1)
+        a1=A(:,pair(i,:))
+        %print(a1)
+
+        x=inv(a1)*B
+        has_zero=false
+        if x>=0
+            has_zero = x==0
+            y(pair(i,:))=x
+            solution=[solution, y]
+        end
+
+        
+    end
+    z=C*solution
+    if any(has_zero==0)
+        fprintf("BFS has degenerate solution")
+    end
+
+else
+    error('number of variables not greater than constraints')
+end
